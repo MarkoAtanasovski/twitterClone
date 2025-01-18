@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser';
 import { v2 as cloudinary } from 'cloudinary';
@@ -25,7 +26,16 @@ console.log(process.env);
 const app = express();
 const PORT = process.env.PORT || 5000
 
+app.use(
+    cors({
+        origin: 'http://localhost:3000', // Frontend URL
+        credentials: true, // Allow cookies and other credentials
+    })
+);
+
+
 app.use(express.json()); // to parse req.body
+
 
 app.use(express.urlencoded({ extended:true})); // to parse form data (urlencoded)
 
@@ -35,6 +45,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/notifications', notificationRoutes);
+
 
 
 app.listen(PORT, ()=>{
