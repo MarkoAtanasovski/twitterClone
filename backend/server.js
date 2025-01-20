@@ -1,13 +1,13 @@
-import express from 'express';
-import cors from 'cors'
-import dotenv from 'dotenv'
-import cookieParser from 'cookie-parser';
 import { v2 as cloudinary } from 'cloudinary';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
 
 import authRoutes from './routes/auth.js';
-import userRoutes from './routes/user.js';
+import notificationRoutes from './routes/notification.js';
 import postRoutes from './routes/post.js';
-import notificationRoutes from './routes/notification.js';  
+import userRoutes from './routes/user.js';
 
 import connectMongoDB from './db/connectMongoDB.js';
 
@@ -33,8 +33,8 @@ app.use(
     })
 );
 
-
-app.use(express.json()); // to parse req.body
+// do not put high limit to prevent DoS attacks
+app.use(express.json({limit:"5mb"})); // to parse req.body
 
 
 app.use(express.urlencoded({ extended:true})); // to parse form data (urlencoded)
