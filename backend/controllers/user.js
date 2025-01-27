@@ -1,5 +1,5 @@
-import User from '../models/user.model.js'
 import Notification from '../models/notification.model.js'
+import User from '../models/user.model.js'
 
 import bcrypt from 'bcryptjs'
 import { v2 as cloudinary } from 'cloudinary'
@@ -97,6 +97,7 @@ export const getSuggestedUsers = async (req, res) => {
 
 }
  export const updateUser = async (req, res) => {
+    
     const {
         fullName,
         email,
@@ -133,7 +134,7 @@ export const getSuggestedUsers = async (req, res) => {
                 await cloudinary.uploader.destroy(user.profileImg.split('/').pop().split('.')[0])
             }
 
-            const uploadedResponse =  await cloudinary.uploader.uploadImage(profileImg)
+            const uploadedResponse =  await cloudinary.uploader.upload(profileImg)
             profileImg = uploadedResponse.secure_url
 
         }
@@ -141,7 +142,7 @@ export const getSuggestedUsers = async (req, res) => {
             if(user.coverImg){
                 await cloudinary.uploader.destroy(user.coverImg.split('/').pop().split('.')[0])
             }
-            const uploadedResponse =  await cloudinary.uploader.uploadImage(coverImg)
+            const uploadedResponse =  await cloudinary.uploader.upload(coverImg)
             coverImg = uploadedResponse.secure_url
 
         }

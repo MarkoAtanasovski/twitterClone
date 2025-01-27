@@ -1,7 +1,8 @@
-import User from '../models/user.model.js'
 import jwt from 'jsonwebtoken';
+import User from '../models/user.model.js';
 
 export const protectRoute = async (req, res, next) =>{
+    
     try{
         const token = req.cookies.jwt;
        // console.log('JWT Cookie:', token); // Log the JWT cookie
